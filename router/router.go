@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"log"
+	"govizpower/controllers"
 	"net/http"
 )
 
@@ -21,10 +21,18 @@ func Run() {
 
 	Router.Use(corsMiddleware())
 
+	apiCtrl := controllers.ApiController{}
+
 	apiGroup := Router.Group(appName)
 	{
+		apiGroup.GET("/all", apiCtrl.Endpoint_kota)
 		apiGroup.GET("/version", func(c *gin.Context) {
-			c.Writer([]byte(version))
+			c.JSON(http.StatusOK, gin.H{
+				"App Name": "Go Viz Power",
+				"Version":  version,
+			})
 		})
 	}
+
+	Router.Run(":4040")
 }
