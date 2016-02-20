@@ -2,8 +2,7 @@ package models
 
 import (
 	"database/sql"
-	"github.com/go-sql-driver/mysql"
-	"log"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type BaseModel struct{}
@@ -12,7 +11,7 @@ type BaseModel struct{}
 // @param  string statement
 // @return (*sql.Rows, error)
 func (b *BaseModel) Query(statement string) (*sql.Rows, error) {
-	db, err := sql.Open("mysql", "febrian:myb11gd4t4@tcp(150.107.149.81:6033)/simbad_data")
+	db, err := sql.Open("mysql", "localhost/database")
 
 	if err != nil {
 		return nil, err
