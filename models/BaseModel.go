@@ -11,7 +11,7 @@ type BaseModel struct{}
 // @param  string statement
 // @return (*sql.Rows, error)
 func (b *BaseModel) Query(statement string) (*sql.Rows, error) {
-	db, err := sql.Open("mysql", "localhost/database")
+	db, err := sql.Open("mysql", "root@/simbad_data")
 
 	if err != nil {
 		return nil, err

@@ -9,10 +9,9 @@ type ApiModel struct {
 	BaseModel
 }
 
-func (a *ApiModel) GetDataKota() datamappers.KotaMapper {
+type KotaContainer []datamappers.KotaMapper
 
-	mapper := datamappers.KotaMapper{}
-	//data := datamappers.ApiMapper{}
+func (a *ApiModel) GetDataKota() KotaContainer {
 
 	statement := `
 		SELECT B.NAMAUPJ, A.GPS_L, A.GPS_B, AVG(A.KWH_KVARH), AVG(A.KWH_LWBP), AVG(A.KWH_WBP)
@@ -22,7 +21,8 @@ func (a *ApiModel) GetDataKota() datamappers.KotaMapper {
 		GROUP BY ID_UPJ
 		ORDER BY B.NAMAUPJ
 	`
-	//a.Query(&mapper, statement)
+	data := datamappers.KotaMapper{}
+	container := make(KotaContainer, 0, 100)
 
 	rows, err := a.Query(statement)
 	if err != nil {
@@ -32,19 +32,19 @@ func (a *ApiModel) GetDataKota() datamappers.KotaMapper {
 
 	for rows.Next() {
 		err := rows.Scan(
-			&mapper.Kota,
-			&mapper.Gps_L,
-			&mapper.Gps_B,
-			&mapper.Kwh_kvarh,
-			&mapper.Kwh_lwbp,
-			&mapper.Kwh_wbp,
+			&data.Kota,
+			&data.Gps_L,
+			&data.Gps_B,
+			&data.Kwh_kvarh,
+			&data.Kwh_lwbp,
+			&data.Kwh_wbp,
 		)
 
 		if err != nil {
 			log.Println("Error Fetching data:", err)
 		}
-		log.Println(mapper)
+		container = append(container, data)
 	}
 
-	return mapper
+	return container
 }
