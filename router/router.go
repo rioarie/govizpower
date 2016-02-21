@@ -17,7 +17,7 @@ func corsMiddleware() gin.HandlerFunc {
 func Run() {
 	Router := gin.Default()
 	appName := "/power-api"
-	version := "v0.0.1"
+	version := "v0.0.2"
 
 	Router.Use(corsMiddleware())
 
@@ -25,7 +25,8 @@ func Run() {
 
 	apiGroup := Router.Group(appName)
 	{
-		apiGroup.GET("/all", apiCtrl.Endpoint_kota)
+		apiGroup.GET("/all/:tahun/:bulan", apiCtrl.Endpoint_kota)
+		apiGroup.GET("/detail/:tahun/:bulan/:id", apiCtrl.Endpoint_detail)
 		apiGroup.GET("/version", func(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{
 				"App Name": "Go Viz Power",
