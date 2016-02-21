@@ -1,6 +1,7 @@
 package router
 
 import (
+	"github.com/gin-gonic/contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"govizpower/controllers"
 	"net/http"
@@ -20,6 +21,7 @@ func Run() {
 	version := "v0.0.2"
 
 	Router.Use(corsMiddleware())
+	Router.Use(gzip.Gzip(gzip.DefaultCompression))
 
 	apiCtrl := controllers.ApiController{}
 
