@@ -1,5 +1,5 @@
 # govizpower
-Backend for data visualization of Indonesia power consumtion. This project is for [*Koding Hackanthon*](https://www.koding.com/Hackathon) purpose. This project is using [Gin](https://github.com/gin-gonic/gin) for Web Framework and [Go-sql-driver](https://github.com/go-sql-driver/mysql) for Mysql Driver.
+High Performace Backend data service of Indonesia power consumtion. This project is for [*Koding Hackathon*](https://www.koding.com/Hackathon) purpose. This project is using [Gin](https://github.com/gin-gonic/gin) for Web Framework and [Go-sql-driver](https://github.com/go-sql-driver/mysql) for Mysql Driver.
 
 ## Requirements
 - [Gin](https://github.com/gin-gonic/gin) Web Framework
@@ -19,6 +19,7 @@ $ go get github.com/go-sql-driver/mysql
 └── govizpower
     ├── controllers       
     ├── datamappers       // Implementing DTO
+    ├── define            // Define for app
     ├── models
     ├── router        
     └── main.go
