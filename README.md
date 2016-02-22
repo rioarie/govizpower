@@ -19,6 +19,7 @@ $ go get github.com/go-sql-driver/mysql
 └── govizpower
     ├── controllers       
     ├── datamappers       // Implementing DTO
+    ├── define            // Define for app
     ├── models
     ├── router        
     └── main.go
