@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"govizpower/define"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -11,8 +12,10 @@ type BaseModel struct{}
 // @param  string statement
 // @return (*sql.Rows, error)
 func (b *BaseModel) Query(statement string) (*sql.Rows, error) {
-	db, err := sql.Open("mysql", "root@/simbad_data")
-
+    
+    def := define.Init()
+    
+    db, err := sql.Open("mysql", def.Dburl)
 	if err != nil {
 		return nil, err
 	}
