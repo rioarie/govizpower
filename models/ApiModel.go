@@ -12,11 +12,17 @@ type ApiModel struct {
 func (a *ApiModel) GetDataKota(blth string) mappers.KotaContainer {
 
 	statement := `
-		SELECT A.ID_UPJ, B.NAMAUPJ, A.GPS_L, A.GPS_B, AVG(A.KWH_KVARH), AVG(A.KWH_LWBP), AVG(A.KWH_WBP)
+		SELECT A.ID_UPJ, B.NAMAUPJ, A.GPS_L, A.GPS_B, AVG(A.KWH_KVARH) AS KWH_KVARH, 
+        (CASE WHEN (AVG(A.KWH_LWBP) < 0)
+              THEN 0        
+              ELSE AVG(A.KWH_LWBP)
+              END    
+        ) AS KWH_LWBP, 
+        AVG(A.KWH_WBP) AS KWH_WBP
 		FROM stmt` + blth + ` A
 		LEFT JOIN m_upj B ON A.ID_UPJ = B.IDUPJ
 		WHERE A.ID_UPJ NOT IN (114, 361) AND A.ID_UPJ < 1000
-		AND (A.GPS_L <> '' OR A.GPS_B <> '')
+		AND A.GPS_L <> '' AND A.GPS_B <> '' AND A.GPS_L IS NOT NULL AND A.GPS_B IS NOT NULL
 		GROUP BY ID_UPJ
 		ORDER BY B.NAMAUPJ
 	`
@@ -52,11 +58,17 @@ func (a *ApiModel) GetDataKota(blth string) mappers.KotaContainer {
 func (a *ApiModel) GetDetailKota(id, blth string) mappers.DetailContainer {
 	statement := `
 		SELECT IDPELANGGAN, GPS_L, GPS_B, AVG(KWH_KVARH) AS KWH_KVARH, 
-		AVG(KWH_LWBP) AS KWH_LWBP, AVG(KWH_WBP) AS KWH_WBP
+		(CASE WHEN (AVG(KWH_LWBP) < 0)
+              THEN 0        
+              ELSE AVG(KWH_LWBP)
+              END    
+        ) AS KWH_LWBP, 
+        AVG(KWH_WBP) AS KWH_WBP
 		FROM stmt` + blth + ` 
 		WHERE ID_UPJ = ` + id + `
-		AND (GPS_L <> '' OR GPS_B <> '')
+		AND GPS_L <> '' AND GPS_B <> '' AND GPS_L IS NOT NULL AND GPS_B IS NOT NULL
 		GROUP BY IDPELANGGAN
+		LIMIT 0,20000
 	`
 
 	data := mappers.DetailMapper{}
