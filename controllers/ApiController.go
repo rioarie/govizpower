@@ -8,11 +8,12 @@ import (
 
 type ApiController struct{}
 
+// Endpoint_kota is handler for request from /all/:tahun/:bulan
 func (a *ApiController) Endpoint_kota(c *gin.Context) {
 	model := models.ApiModel{}
 
-	tahun := c.Param("tahun")
-	bulan := c.Param("bulan")
+	tahun := c.Param("tahun") // year
+	bulan := c.Param("bulan") // month
 
 	data := model.GetDataKota(tahun + bulan)
 
@@ -26,11 +27,12 @@ func (a *ApiController) Endpoint_kota(c *gin.Context) {
 	}
 }
 
+// Endpoint_detail is handler for request from /all/:tahun/:bulan/:id
 func (a *ApiController) Endpoint_detail(c *gin.Context) {
 	model := models.ApiModel{}
-	tahun := c.Param("tahun")
-	bulan := c.Param("bulan")
-	idupj := c.Param("id")
+	tahun := c.Param("tahun") //year
+	bulan := c.Param("bulan") // month
+	idupj := c.Param("id") // idcity
 
 	data := model.GetDetailKota(idupj, tahun+bulan)
 	if data == nil {

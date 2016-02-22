@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// corsMiddleware func implementing CORS with Gin
 func corsMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -17,7 +18,7 @@ func corsMiddleware() gin.HandlerFunc {
 }
 
 func Run() {
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode) // Set App Mode to release
 	Router := gin.Default()
 	def := define.Init()
 	appName := def.AppName

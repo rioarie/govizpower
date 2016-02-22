@@ -6,6 +6,7 @@ import (
 	"runtime"
 )
 
+// setRuntime for app
 func setRuntime() {
 	nuCPU := runtime.NumCPU()
 	runtime.GOMAXPROCS(nuCPU)

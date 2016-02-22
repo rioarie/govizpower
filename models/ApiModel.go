@@ -9,6 +9,9 @@ type ApiModel struct {
 	BaseModel
 }
 
+// GetDataKota func queri data power comsumtion average per city
+// Param string blth date(YYYYMM)
+// Return slice []KotaMapper
 func (a *ApiModel) GetDataKota(blth string) mappers.KotaContainer {
 
 	statement := `
@@ -55,6 +58,9 @@ func (a *ApiModel) GetDataKota(blth string) mappers.KotaContainer {
 	return container
 }
 
+// GetDetailKota func Query detail of city
+// Param string idcity, string blth date(YYYYMM)
+// Return slice []DetailMapper
 func (a *ApiModel) GetDetailKota(id, blth string) mappers.DetailContainer {
 	statement := `
 		SELECT IDPELANGGAN, GPS_L, GPS_B, AVG(KWH_KVARH) AS KWH_KVARH, 
