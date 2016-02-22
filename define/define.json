@@ -1,0 +1,5 @@
+{
+	"AppName" : "/power-api",
+	"Version" : "v0.0.3",
+	"Dburl" : "dataviz:h4ck4t0n@tcp(159.8.109.181:6033)/simbad_data"
+}

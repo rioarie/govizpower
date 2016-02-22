@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"govizpower/controllers"
+	"govizpower/define"
 	"net/http"
 )
 
@@ -16,9 +17,11 @@ func corsMiddleware() gin.HandlerFunc {
 }
 
 func Run() {
+	gin.SetMode(gin.ReleaseMode)
 	Router := gin.Default()
-	appName := "/power-api"
-	version := "v0.0.2"
+	def := define.Init()
+	appName := def.AppName
+	version := def.Version
 
 	Router.Use(corsMiddleware())
 	Router.Use(gzip.Gzip(gzip.DefaultCompression))
